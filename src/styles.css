@@ -24,7 +24,7 @@ body {
 }
 
 #titleBarContainer {
-    position: absolute;
+    position: fixed;
     top: env(titlebar-area-y, 0);
     height: env(titlebar-area-height, var(--fallback-title-bar-height));
     width: 100%;
@@ -68,9 +68,7 @@ body {
 }
 
 body #remain-time-container {
+    margin-top: 50px;
     text-align: center;
-    vertical-align: middle;
     width: 100%;
-    line-height: calc(100vh - 35px);
-    ;
 }
