@@ -14,12 +14,7 @@
             "sourceMaps": true,
             "breakOnLoad": true,
             "sourceMapPathOverrides": {
-                "webpack:///./~/*": "${webRoot}/node_modules/*",
-                "webpack:///./src/core/*": "${webRoot}/src/core/*",
-                "webpack:///./src/store/*": "${webRoot}/src/store/*",
-                "webpack:///./src/utils/*": "${webRoot}/src/utils/*",
-                "webpack:///src/*": "${webRoot}/src/*",
-                "webpack:///*": "*",
+                "webpack://fondle-bass-timer/*": "${webRoot}/*",
             }
         },
     ]
