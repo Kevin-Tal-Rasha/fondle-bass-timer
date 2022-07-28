@@ -3,7 +3,7 @@
 /* Add styles here to customize the appearance of your app */
 
 :root {
-    --fallback-title-bar-height: 40px;
+    --fallback-title-bar-height: 35px;
 }
 
 .draggable {
@@ -26,6 +26,7 @@ body {
 #titleBarContainer {
     position: fixed;
     top: env(titlebar-area-y, 0);
+    padding-top: 1px;
     height: env(titlebar-area-height, var(--fallback-title-bar-height));
     width: 100%;
     background-color: #254B85;
@@ -58,17 +59,11 @@ body {
     padding: 8px;
 }
 
-#mainContent {
+#app {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     top: env(titlebar-area-height, var(--fallback-title-bar-height));
-    overflow-y: scroll;
-}
-
-body #remain-time-container {
-    margin-top: 50px;
-    text-align: center;
-    width: 100%;
+    overflow-y: auto;
 }
