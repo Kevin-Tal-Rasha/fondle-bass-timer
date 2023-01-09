@@ -12,8 +12,9 @@
 !-->
 <template>
   <div class="board">
-    <Board ref="SudokuBoard" :seed="seed" />
+    <Board ref="SudokuBoard" />
   </div>
+  <a-button @click="Create">{{ createMode ? '完成' : '创建' }}</a-button>
   <a-button @click="Calulate">计算</a-button>
   <p>{{ calTimeDesc }}</p>
 </template>
@@ -25,7 +26,30 @@ export default {
   components: { Board },
   data() {
     return {
+      createMode: false,
       calTime: '',
+      // seed: [
+      //   [0, 0, 0, 8, 1, 0, 0, 0, 0],
+      //   [2, 0, 0, 3, 7, 0, 0, 0, 0],
+      //   [8, 1, 0, 0, 0, 0, 0, 4, 0],
+      //   [0, 0, 1, 0, 0, 0, 0, 7, 2],
+      //   [0, 0, 0, 0, 0, 0, 0, 6, 3],
+      //   [0, 7, 3, 6, 0, 0, 0, 0, 0],
+      //   [0, 0, 9, 2, 0, 0, 6, 0, 0],
+      //   [4, 0, 0, 0, 0, 6, 0, 0, 9],
+      //   [0, 0, 0, 0, 0, 1, 7, 0, 0],
+      // ],
+      // seed: [
+      //   [0, 0, 5, 3, 0, 0, 0, 0, 0],
+      //   [8, 0, 0, 0, 0, 0, 0, 2, 0],
+      //   [0, 7, 0, 0, 1, 0, 5, 0, 0],
+      //   [4, 0, 0, 0, 0, 5, 3, 0, 0],
+      //   [0, 1, 0, 0, 7, 0, 0, 0, 6],
+      //   [0, 0, 3, 2, 0, 0, 0, 8, 0],
+      //   [0, 6, 0, 5, 0, 0, 0, 0, 9],
+      //   [0, 0, 4, 0, 0, 0, 0, 3, 0],
+      //   [0, 0, 0, 0, 0, 9, 7, 0, 0],
+      // ],
       seed: [
         [8, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 3, 6, 0, 0, 0, 0, 0],
@@ -50,6 +74,9 @@ export default {
       // ],
     };
   },
+  mounted() {
+    this.$refs.SudokuBoard.Init(this.seed);
+  },
   computed: {
     calTimeDesc() {
       if (this.calTime) return `计算时间：${this.calTime.asMilliseconds()}ms`;
@@ -57,9 +84,18 @@ export default {
     },
   },
   methods: {
+    Create() {
+      this.createMode = !this.createMode;
+      const sudokuBoard = this.$refs.SudokuBoard;
+      if (!this.createMode) {
+        const data = sudokuBoard.EndCreate();
+        console.log(data);
+      } else sudokuBoard.StartCreate();
+    },
     Calulate() {
       const startTime = new moment();
-      this.$refs.SudokuBoard.Calulate().then(() => {
+      const sudokuBoard = this.$refs.SudokuBoard;
+      sudokuBoard.Calulate().then(() => {
         const endTime = new moment();
         this.calTime = moment.duration(endTime.diff(startTime));
       });
@@ -72,5 +108,9 @@ export default {
 .board {
   width: 600px;
   margin: 20px auto;
+}
+
+.ant-btn {
+  margin-right: 10px;
 }
 </style>

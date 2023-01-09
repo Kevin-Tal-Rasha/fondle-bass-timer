@@ -7,13 +7,21 @@
     :columns="columns"
   >
     <template v-slot:bodyCell="{ text, index, column }">
+      <a-input
+        v-if="createMode"
+        @change="
+          (e) => gridCellChanged(e.data, index, (column || {}).dataIndex)
+        "
+      />
       <b
-        style="color: #1890ff; text-align: center; display: block"
-        v-if="seed[index][(column || {}).dataIndex]"
+        style="color: #1890ff; text-align: center; display: block; height: 22px"
+        v-else-if="seed.length && seed[index][(column || {}).dataIndex]"
       >
         {{ text }}
       </b>
-      <span style="text-align: center; display: block" v-else>{{ text }}</span>
+      <span style="text-align: center; display: block; height: 22px" v-else>{{
+        text
+      }}</span>
     </template>
   </a-table>
 </template>
@@ -25,11 +33,12 @@ import { RuleHelper } from './RuleHelper';
 export default {
   name: 'SudokuBoard',
   props: {
-    seed: { type: Array },
     size: { type: Number, default: 9 },
   },
   data() {
     return {
+      createMode: false,
+      seed: [],
       datasource: [],
       columns: [],
     };
@@ -68,17 +77,25 @@ export default {
         },
       });
     }
-
-    this.$nextTick(() => {
-      this.Init();
-    });
   },
   methods: {
-    Init() {
+    Init(seed) {
+      if (seed) this.seed = seed;
+      else this.seed.length = 0;
+
+      if (!this.seed.length) {
+        for (var i = 0; i < this.size; i++) {
+          this.seed.push([]);
+          for (var j = 0; j < this.size; j++) {
+            this.seed[i].push('');
+          }
+        }
+      }
+
       this.datasource.length = 0;
-      for (var i = 0; i < this.size; i++) {
+      for (i = 0; i < this.size; i++) {
         var row = [];
-        for (var j = 0; j < this.size; j++) {
+        for (j = 0; j < this.size; j++) {
           if (this.seed[i][j]) row.push(this.seed[i][j]);
           else row.push('');
         }
@@ -86,8 +103,6 @@ export default {
       }
     },
     async Calulate() {
-      this.Init();
-
       return new Promise((resolve) => {
         var ruleHelper = new RuleHelper(
           JSON.parse(JSON.stringify(this.datasource))
@@ -142,6 +157,24 @@ export default {
         }
       }
       return true;
+    },
+    StartCreate() {
+      this.createMode = true;
+      this.Init();
+    },
+    gridCellChanged(val, rowIndex, colIndex) {
+      this.seed[rowIndex][colIndex] = val;
+    },
+    EndCreate() {
+      this.createMode = false;
+      for (var i = 0; i < this.size; i++) {
+        for (var j = 0; j < this.size; j++) {
+          this.seed[i][j] = parseInt(this.seed[i][j]) || 0;
+        }
+      }
+
+      this.Init(this.seed);
+      return JSON.stringify(this.seed);
     },
   },
 };
