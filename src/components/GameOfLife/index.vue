@@ -1,11 +1,14 @@
-<template>
-  <!--
+<!--
+ * @description: 
     如果一个格子周围有 3 个格子为白，则该格子为白；
     如果一个格子周围有 2 个格子为白，则该格子颜色不变；
     如果一个格子周围白色格子少于 2 个，则该格子为黑；
     如果一个格子周围有超过 3 个格子为白，则该格子为黑。
--->
-
+ * @author: 
+ * @date: 2022-7-28 9:59:40
+ * @version: V1.0.0
+!-->
+<template>
   <canvas ref="canvas" id="canvas" width="800" height="600"></canvas>
 
   <hr />
@@ -25,14 +28,14 @@
 </template>
 
 <script>
-import conf from "./config";
-import { Dot } from "./dot";
-import { Board } from "./board";
+import conf from './config';
+import { Dot } from './dot';
+import { Board } from './board';
 
 export default {
-  name: "GameOfLife",
+  name: 'GameOfLife',
   mounted() {
-    this.ctx = this.$refs.canvas.getContext("2d");
+    this.ctx = this.$refs.canvas.getContext('2d');
     this.width = this.$refs.canvas.width;
     this.height = this.$refs.canvas.height;
   },
@@ -72,15 +75,15 @@ export default {
       //     if (v === 1)
       //         startDots.push(new Dot(ctx, i % 35 * this.conf.dotSize + margin.left, Math.trunc(i / 35) * this.conf.dotSize + margin.top, 'white'));
       // });
-      pattern.split("\n").forEach((row, rowIndex) => {
-        row.split("").forEach((v, colIndex) => {
-          if (v === ".")
+      pattern.split('\n').forEach((row, rowIndex) => {
+        row.split('').forEach((v, colIndex) => {
+          if (v === '.')
             startDots.push(
               new Dot(
                 this.ctx,
                 colIndex * this.conf.dotSize + this.conf.patternMargin.left,
                 rowIndex * this.conf.dotSize + this.conf.patternMargin.top,
-                "white"
+                'white'
               )
             );
         });

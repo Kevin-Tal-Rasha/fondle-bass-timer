@@ -80,8 +80,7 @@ Dots.prototype.checkChange = function (dots) {
         if (d) {
             if (d.type !== dot.type)
                 changed = true;
-        }
-        else
+        } else
             changed = true;
     });
 

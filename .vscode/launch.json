@@ -5,14 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-msedge",
+            "type": "msedge",
             "request": "launch",
             "name": "Debug in Edge",
-            "version": "canary",
             "url": "http://localhost:8080/",
             "webRoot": "${workspaceFolder}",
             "sourceMaps": true,
-            "breakOnLoad": true,
             "sourceMapPathOverrides": {
                 "webpack://fondle-bass-timer/*": "${webRoot}/*",
             }

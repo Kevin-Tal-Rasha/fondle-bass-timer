@@ -2,13 +2,11 @@
   距离下班还剩{{ minutes }}分{{ seconds.toFixed(3) }}秒
   <br />
   距离绩效奖金发放还剩{{ infinity }}年
-
-  <a-button @click="gotoGOL">生命游戏</a-button>
 </template>
 
 <script>
 export default {
-  name: "MainTimer",
+  name: 'FreeTimer',
   data() {
     return {
       minutes: 0,
@@ -23,11 +21,6 @@ export default {
       this.minutes = Math.floor(timeDiff / 1000 / 60);
       this.seconds = (timeDiff - this.minutes * 60 * 1000) / 1000;
     }, 10);
-  },
-  methods: {
-    gotoGOL() {
-      this.$router.push("/gol");
-    },
   },
 };
 </script>
