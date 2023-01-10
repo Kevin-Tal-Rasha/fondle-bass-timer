@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import { NumberBlock } from './NumberBlock';
-import { RuleHelper } from './RuleHelper';
+import NumberBlock from './NumberBlock';
+import RuleHelper from './RuleHelper';
 
 export default {
   name: 'SudokuBoard',
