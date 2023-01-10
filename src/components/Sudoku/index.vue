@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import moment from 'moment';
 import Board from './Board.vue';
 export default {
   components: { Board },
@@ -93,12 +92,13 @@ export default {
       } else sudokuBoard.StartCreate();
     },
     Calulate() {
-      const startTime = new moment();
-      const sudokuBoard = this.$refs.SudokuBoard;
-      sudokuBoard.Calulate().then(() => {
-        const endTime = new moment();
-        this.calTime = moment.duration(endTime.diff(startTime));
-      });
+      this.$refs.SudokuBoard.Calulate()
+        .then((calTime) => {
+          this.calTime = calTime;
+        })
+        .catch(() => {
+          this.calTime = 0;
+        });
     },
   },
 };

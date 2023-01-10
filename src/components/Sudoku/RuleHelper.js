@@ -4,17 +4,18 @@ class RuleHelper {
     }
 
     checkDuplicate(arr, num) {
-        return arr.indexOf(num) < 0;
-        // if ( arr.indexOf(num) >= 0) return false;
-
-        // var pass = true;
-        // var checkedNums = [];
-        // arr.forEach(n => {
-        //     if (!n || !pass) return;
-        //     if (checkedNums.indexOf(n) >= 0) pass = false;
-        //     checkedNums.push(n);
-        // });
-        // return pass;
+        if (num)
+            return arr.indexOf(num) < 0;
+        else {
+            var pass = true;
+            var checkedNums = [];
+            arr.forEach(n => {
+                if (!n || !pass) return;
+                if (checkedNums.indexOf(n) >= 0) pass = false;
+                checkedNums.push(n);
+            });
+            return pass;
+        }
     }
 
     SetDatasource(datasource) {
@@ -25,9 +26,13 @@ class RuleHelper {
         var checked = true;
         this.datasource.forEach((row, rowIndex) => {
             if (!checked) return;
-            row.forEach((num, colIndex) => {
+            row.forEach((_, colIndex) => {
                 if (!checked) return;
-                checked = this.Check(rowIndex, colIndex, num);
+                checked = this.checkDuplicate(this.GetRowNums(rowIndex));
+                if (checked)
+                    checked = this.checkDuplicate(this.GetColumnNums(rowIndex));
+                if (checked)
+                    checked = this.checkDuplicate(this.GetBlockNums(rowIndex, colIndex));
             });
         });
         return checked;

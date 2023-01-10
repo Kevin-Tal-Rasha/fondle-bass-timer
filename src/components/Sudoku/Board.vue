@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import NumberBlock from './NumberBlock';
 import RuleHelper from './RuleHelper';
 
@@ -103,14 +104,21 @@ export default {
       }
     },
     async Calulate() {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         var ruleHelper = new RuleHelper(
           JSON.parse(JSON.stringify(this.datasource))
         );
 
+        if (!ruleHelper.CheckAll()) {
+          alert('数独题有误');
+          reject();
+          return;
+        }
+
+        const startTime = new moment();
         if (this.tryFill(ruleHelper)) this.datasource = ruleHelper.datasource;
         else alert('数独求解失败');
-        resolve();
+        resolve(moment.duration(new moment().diff(startTime)));
       });
     },
     tryFill(ruleHelper, pos) {
