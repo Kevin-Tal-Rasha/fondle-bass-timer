@@ -1,7 +1,10 @@
 <template>
   <FreeTimer />
-  <a-button @click="goto('GOL')">生命游戏</a-button>
-  <a-button @click="goto('Sudoku')">数独</a-button>
+  <div>
+    <a-button @click="goto('GOL')">生命游戏</a-button>
+    <a-button @click="goto('Sudoku')">数独</a-button>
+    <a-button @click="goto('AudioPlayer')">音频播放器</a-button>
+  </div>
 </template>
 
 <script>
@@ -11,15 +14,14 @@ export default {
   components: { FreeTimer },
   methods: {
     goto(type) {
-      switch (type) {
-        case 'GOL':
-          this.$router.push('/gol');
-          break;
-        case 'Sudoku':
-          this.$router.push('/sudoku');
-          break;
-      }
+      this.$router.push('/' + type);
     },
   },
 };
 </script>
+
+<style lang="less" scoped>
+.ant-btn {
+  margin-right: 10px;
+}
+</style>

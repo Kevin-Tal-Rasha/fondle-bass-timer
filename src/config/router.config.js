@@ -3,4 +3,5 @@ export default [
     { path: '/freetimer', component: () => import('@/components/FreeTimer') },
     { path: '/gol', component: () => import('@/components/GameOfLife') },
     { path: '/sudoku', component: () => import('@/components/Sudoku') },
+    { path: '/audioplayer', component: () => import('@/components/AudioPlayer') },
 ]
