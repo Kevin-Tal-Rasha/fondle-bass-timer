@@ -55,7 +55,7 @@ class Speaker {
             var tempo = 1;
             if (note.indexOf('_') >= 0) {
                 tempo = Number(note.split('_')[1]);
-                note = note.split('_')[0]
+                note = note.split('_')[0];
             }
             await this.PlayNote(note, tempo);
         }
