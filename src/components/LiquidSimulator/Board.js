@@ -4,6 +4,8 @@ class Board {
     #liquidSystem;
     #canvas;
     #step = 0;
+    #simulateInterval;
+    #paintInterval
     running = false;
 
     constructor(canvas) {
@@ -21,21 +23,24 @@ class Board {
     }
 
     stop() {
+        if (this.#simulateInterval) clearInterval(this.#simulateInterval);
+        if (this.#paintInterval) clearInterval(this.#paintInterval);
         this.running = false;
     }
 
     start() {
         this.running = true;
-        this.draw();
+        this.simulate();
     }
 
     restart(gsizeX, gsizeY, particlesX, particlesY) {
+        this.stop();
         this.#liquidSystem = new LiquidSystem(this.#canvas, gsizeX, gsizeY, particlesX, particlesY);
         this.running = true;
-        this.draw();
+        this.simulate();
     }
 
-    draw() {
+    simulate() {
         // clear
 
         // advance simulation
@@ -48,8 +53,8 @@ class Board {
         this.#liquidSystem = new LiquidSystem(this.#canvas, gsizeX, gsizeY, particlesX, particlesY);
         this.#liquidSystem.color = color || '#0000FF';
 
-        setInterval(() => this.draw(), 10);
-        setInterval(() => this.#liquidSystem.paint(), 10);
+        this.#simulateInterval = setInterval(() => this.simulate(), 10);
+        this.#paintInterval = setInterval(() => this.#liquidSystem.paint(), 10);
         this.start();
     }
 }

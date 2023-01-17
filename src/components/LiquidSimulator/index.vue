@@ -17,7 +17,10 @@ var board;
 export default {
   mounted() {
     board = new Board(this.$refs.canvas);
-    board.init(200, 150, 100, 100, '#0000FF');
+    board.init(200, 150, 100, 100, '#006dff');
+  },
+  unmounted() {
+    if (board) board.stop();
   },
   methods: {
     mousemove(event) {
