@@ -1,7 +1,9 @@
 export default [
     { path: '/', component: () => import('@/HomePage') },
-    { path: '/freetimer', component: () => import('@/components/FreeTimer') },
-    { path: '/gol', component: () => import('@/components/GameOfLife') },
-    { path: '/sudoku', component: () => import('@/components/Sudoku') },
-    { path: '/audioplayer', component: () => import('@/components/AudioPlayer') },
+    { path: '/FreeTimer', component: () => import('@/components/FreeTimer') },
+    { path: '/GameOfLife', component: () => import('@/components/GameOfLife') },
+    { path: '/Sudoku', component: () => import('@/components/Sudoku') },
+    { path: '/AudioPlayer', component: () => import('@/components/AudioPlayer') },
+    { path: '/MotionSimulator', component: () => import('@/components/MotionSimulator') },
+    { path: '/LiquidSimulator', component: () => import('@/components/LiquidSimulator') },
 ]

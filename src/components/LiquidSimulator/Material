@@ -1,0 +1,12 @@
+class Material {
+    constructor(m, rd, k, v, d, g) {
+        this.m = m;
+        this.rd = rd;
+        this.k = k;
+        this.v = v;
+        this.d = d;
+        this.g = g;
+    }
+}
+
+export default Material;
